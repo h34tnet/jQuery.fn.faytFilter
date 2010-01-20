@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Fayt</title>
+
+<script src="http://code.jquery.com/jquery-1.4.min.js" type="text/javascript"></script>
+<script src="faytFilter.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var testList = ["Abyssinian", "Aegean cat", "Australian Mist", "American Polydactyl", "American Bobtail", "American Curl", "American Longhair", "American Shorthair", "American Wirehair", "Asian Semi-longhair", "Balinese", "Bengal", "Birman", "Bombay", "Brazilian Shorthair", "British Shorthair", "British Longhair", "Burmese", "Burmilla", "California Spangled Cat", "Chantilly/Tiffany", "Chartreux", "Chausie", "Cheetoh", "Colorpoint Shorthair", "Cornish Rex", "Cymric", "Devon Rex", "Donskoy or Don Sphynx", "Dragon Li", "Egyptian Mau", "European Shorthair", "Exotic Shorthair", "German Rex", "Havana Brown", "Himalayan/Colorpoint Persian", "Japanese Bobtail", "Javanese", "Korat", "Kurilian Bobtail", "LaPerm", "Maine Coon", "Manx", "Munchkin", "Nebelung", "Norwegian Forest Cat", "Ocicat", "Ojos Azules", "Oregon Rex", "Oriental Bicolour", "Oriental Shorthair", "Oriental Longhair", "Persian", "Peterbald", "Pixie-bob", "Ragamuffin", "Ragdoll", "Russian Blue", "Russian White, Black and Tabby", "Savannah", "Scottish Fold", "Selkirk Rex", "Serengeti cat", "Siamese", "Siberian", "Singapura", "Snowshoe", "Sokoke", "Somali", "Sphynx", "Sumxu", "Thai/Old-style Siamese", "Tonkinese", "Toyger", "Turkish Angora", "Turkish Van", "Turkish Vankedisi", "Twisty Cat/Squitten", "Ukrainian Levkoy", "Ussuri", "York Chocolate Cat"];
+
+        // add test data
+        $('SELECT').each(function () {
+            $this = $(this);
+
+            for (var i=0; i<testList.length; i++)
+                $this.append('<option>' + testList[i] + '</option>');
+        });
+
+        // init filters
+
+        $('#fooselect').faytFilter({
+            showMatches: '#fooSelectHits',
+            delay: 500
+
+        });
+
+        $('#barselect').faytFilter({
+            insert: 'before',
+            method: 'strictwildcard',
+            caseSensitive: true,
+            showMatches: $('#barSelectHits')
+        });
+
+        $('#gooselect').faytFilter({
+            insert: $('#gooSelector'),
+            method: 'regexp',
+            showMatches: function (count) {
+                $('#gooSelectHits').html(count == 0 ? 'keine Treffer' : count);
+            },
+            cssClass: 'faytFilter2'
+        });
+
+        $('#garselect').faytFilter({
+            insert: 'before',
+
+            method: function (filter, opts) {
+                filter = filter.toLowerCase();
+                return function (text) {
+                    return text.toLowerCase().substr(0, filter.length) == filter;
+                }
+            },
+
+            showMatches: function (count) {
+                $('#garSelectHits').html(count == 0 ? 'keine Treffer' : count);
+            },
+            cssClass: 'faytFilter2'
+        });
+
+    });
+</script>
+
+<style type="text/css">
+DIV {
+    margin-bottom: 32px;
+}
+
+.faytFilter {
+    background-color: #FFFF66;
+}
+
+.faytFilter2 {
+    background-color: #000033;
+    color: #FFF;
+}
+
+</style>
+</head>
+<body>
+
+<div><select id="fooselect" size="3"></select><span id="fooSelectHits"></span></div>
+
+<div><select id="barselect"></select><span id="barSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
+
+<div><select id="gooselect"></select><span id="gooSelectHits">none yet</span>
+
+<div id="gooSelector">Filter Text: </div></div>
+
+<div><select id="garselect"></select><span id="garSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
+
+</body>
+</html>
