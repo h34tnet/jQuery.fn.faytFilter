@@ -48,16 +48,18 @@
             insert: 'before',
 
             method: function (filter, opts) {
-                filter = filter.toLowerCase();
+                filter = opts.caseSensitive ? filter : filter.toLowerCase();
                 return function (text) {
-                    return text.toLowerCase().substr(0, filter.length) == filter;
+                    var ttc = opts.caseSensitive ? text : text.toLowerCase();
+                    return ttc.substr(0, filter.length) == filter;
                 }
             },
 
             showMatches: function (count) {
                 $('#garSelectHits').html(count == 0 ? 'keine Treffer' : count);
             },
-            cssClass: 'faytFilter2'
+            cssClass: 'faytFilter2',
+            delay: 1000
         });
 
     });
@@ -80,15 +82,18 @@ DIV {
 </style>
 </head>
 <body>
+<h1>jQuery.faytFilter</h1>
 
+<h2>plain, case insensitive</h2>
 <div><select id="fooselect" size="3"></select><span id="fooSelectHits"></span></div>
 
+<h2>strict wildcard, case sensitive</h2>
 <div><select id="barselect"></select><span id="barSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
 
+<h2>regexp, case insensitive</h2>
 <div><select id="gooselect"></select><span id="gooSelectHits">none yet</span>
 
-<div id="gooSelector">Filter Text: </div></div>
-
+<h2>custom function</h2>
 <div><select id="garselect"></select><span id="garSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
 
 </body>
