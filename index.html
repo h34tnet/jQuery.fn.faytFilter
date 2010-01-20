@@ -14,10 +14,14 @@
 
         // add test data
         $('SELECT').each(function () {
-            $this = $(this);
-
             for (var i=0; i<testList.length; i++)
-                $this.append('<option>' + testList[i] + '</option>');
+                $(this).append('<option>' + testList[i] + '</option>');
+        });
+
+        // add test data
+        $('UL').each(function () {
+            for (var i=0; i<testList.length; i++)
+                $(this).append('<li>' + testList[i] + '</li>');
         });
 
         // init filters
@@ -62,6 +66,20 @@
             delay: 1000
         });
 
+        $('#fooul').faytFilter({
+            insert: 'before',
+
+            method: function (filter, opts) {
+                filter = opts.caseSensitive ? filter : filter.toLowerCase();
+                return function (text) {
+                    var ttc = opts.caseSensitive ? text : text.toLowerCase();
+                    return ttc.substr(0, filter.length) == filter;
+                }
+            },
+
+            delay: 1000
+        });
+
     });
 </script>
 
@@ -91,10 +109,15 @@ DIV {
 <div><select id="barselect"></select><span id="barSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
 
 <h2>regexp, case insensitive</h2>
+<div id="gooSelector">FAYT: </div>
 <div><select id="gooselect"></select><span id="gooSelectHits">none yet</span>
 
 <h2>custom function</h2>
 <div><select id="garselect"></select><span id="garSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
+
+<h2>Non select</h2>
+<ul id="fooul">
+</ul>
 
 </body>
 </html>
