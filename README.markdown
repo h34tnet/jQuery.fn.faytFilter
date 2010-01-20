@@ -2,6 +2,8 @@
 
 Adds a find-as-you-type filter to select-elements.
 
+**Update:** I just noticed it also works for all other elements like OLs and ULs. D'oh!
+
 ## Usage
 
     $('SELECT').faytFilter();
@@ -34,3 +36,4 @@ The inner function should return true if it matches or false otherwise.
             }
         }    
     });
+
