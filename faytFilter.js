@@ -127,7 +127,7 @@
     // this function is called on the keyUp-event in the fayt-textfield
     function filterFunction($select, $tfilter, opts) {
         var 
-            filterText = opts.caseSensitive ? $tfilter.val() : $tfilter.val().toLowerCase(),
+            filterText = $tfilter.val(),
             ffun = function () {return true;};
 
         // prepare the filtering function - regexp, strictwildcard, wildcard and plain are predefined
