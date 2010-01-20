@@ -18,11 +18,11 @@ Adds a find-as-you-type filter to select-elements.
       delay:          100             // keyUp delay in ms 
     };
 
-### custom function
+### Custom function
 
 options.method takes a function(filter, opts), where filter is the filter text and opts are the options, that returns another function that takes the text of the element.
 
-return true if it matches or false otherwise
+The inner function should return true if it matches or false otherwise.
 
     $('SELECT').faytFilter({
         // matches the beginnings of a word
