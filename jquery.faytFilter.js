@@ -200,17 +200,8 @@
 
     // jQuery extension
     $.fn.faytFilter = function (params) {
-        // default options
-        this.defaultOpts = {
-            insert:         'after',        // "before", "after", $-selector string or $-object
-            method :        'plain',        // methods: plain, wildcard (* for zero or more and ? for exactly one) and regexp
-            showMatches :   false,          // false: don't show, function: call user defined function, $-object: write there, $-selector string: match and write
-            caseSensitive : false,          // case sensitive match
-            cssClass:       'faytFilter',   // css class for the text field
-            delay:          100
-        }
-
-        var opts = $.extend({}, this.defaultOpts, params);
+        // options: params overwrite defaults
+        var opts = $.extend({}, $.fn.faytFilter.defaultOpts, params);
 
         // set'em up
         this.each(function () {
@@ -218,6 +209,16 @@
         });
 
         return $;
+    }
+
+        // default options
+    $.fn.faytFilter.defaultOpts = {
+        insert:         'after',        // "before", "after", $-selector string or $-object
+        method :        'plain',        // methods: plain, wildcard (* for zero or more and ? for exactly one) and regexp
+        showMatches :   false,          // false: don't show, function: call user defined function, $-object: write there, $-selector string: match and write
+        caseSensitive : false,          // case sensitive match
+        cssClass:       'faytFilter',   // css class for the text field
+        delay:          100
     }
 
 
