@@ -18,12 +18,12 @@
                 $(this).append('<option>' + testList[i] + '</option>');
         });
 
-        $('#fooul').each(function () {
+        $('#ulDemo').each(function () {
             for (var i=0; i<testList.length; i++)
                 $(this).append('<li>' + testList[i] + '</li>');
         });
 
-        $('#bardiv').each(function () {
+        $('#divSpanDemo').each(function () {
             for (var i=0; i<testList.length; i++)
                 $(this).append('<span><a href="#cat' + i + '">' + testList[i] + '</a> </span>');
         });
@@ -97,14 +97,14 @@
         });
 
         // the filter also works with lists (UL, OL) and LIs ...
-        $('#fooul').faytFilter({
+        $('#ulDemo').faytFilter({
             insert: 'before',
             method: 'wildcard',
             delay:  1000
         });
 
         // ... or a DIV as container and SPANs as elements
-        $('#bardiv').faytFilter();
+        $('#divSpanDemo').faytFilter();
 
     });
 </script>
@@ -148,11 +148,11 @@ DIV {
 <div><select id="customSelect"></select><span id="customSelectMatchCount" style="border: 1px solid black; padding: 4px;"></span></div>
 
 <h2>Fayt with a List</h2>
-<ul id="fooul">
+<ul id="ulDemo">
 </ul>
 
 <h2>Fayt with a DIV</h2>
-<div id="bardiv"></div>
+<div id="divSpanDemo"></div>
 
 </body>
 </html>
