@@ -18,67 +18,94 @@
                 $(this).append('<option>' + testList[i] + '</option>');
         });
 
-        // add test data
-        $('UL').each(function () {
+        $('#fooul').each(function () {
             for (var i=0; i<testList.length; i++)
                 $(this).append('<li>' + testList[i] + '</li>');
         });
 
+        $('#bardiv').each(function () {
+            for (var i=0; i<testList.length; i++)
+                $(this).append('<span><a href="#cat' + i + '">' + testList[i] + '</a> </span>');
+        });
+
         // init filters
 
+        // shows the number of matches in the element "#fooSelectHits"
+        // the delay is half a second
         $('#fooselect').faytFilter({
             showMatches: '#fooSelectHits',
-            delay: 500
+            delay:       500
 
         });
 
-        $('#barselect').faytFilter({
-            insert: 'before',
-            method: 'strictwildcard',
+        // the "wildcard" mode supports "*" (0-n chars) and 
+        // "?" (exactly 1 char) as placeholders.
+        $('#wcSelect').faytFilter({
+            insert:        'before',
+            method:        'wildcard',
             caseSensitive: true,
-            showMatches: $('#barSelectHits')
+            showMatches:   $('#wcSelect')
         });
 
-        $('#gooselect').faytFilter({
-            insert: $('#gooSelector'),
+        // inserts the fayt text field before the element. also, it does 
+        // strict, case sensitive wildcard matching, meaning fayt text 
+        // begins with the first char of the elements text (instead of 
+        // anywhere in the elements text).
+        // the "wildcard" mode supports "*" (0-n chars) and 
+        // "?" (exactly 1 char) as placeholders.
+        $('#strictwildcardSelect').faytFilter({
+            insert:        'before',
+            method:        'strictwildcard',
+            caseSensitive: true,
+            showMatches:   $('#strictwildcardSelectMatchCount')
+        });
+
+
+        // the regexp method allows filtering by regular expressions
+        // also, showMatches is a function now, so the user can control
+        // where and how the match count is displayed
+        // additionally, the fayt text element is appended to the 
+        // "#regexpSelectFaytContainer" element, which can be anywhere 
+        // on the page.
+        $('#regexpSelect').faytFilter({
+            insert: $('#regexpSelectFaytContainer'),
             method: 'regexp',
             showMatches: function (count) {
-                $('#gooSelectHits').html(count == 0 ? 'keine Treffer' : count);
+                $('#regexpSelectMatchCount').html(count == 0 ? 'no matches found' : count);
             },
             cssClass: 'faytFilter2'
         });
 
-        $('#garselect').faytFilter({
-            insert: 'before',
+        // custom select takes an user profided function for comparing
+        // in this demo, the beginnings of the words are matched
+        // note that case sensitivity must be dealt with in the function
+        // also, showMatches is only a string, so faytFilter does the matching for you
+        $('#customSelect').faytFilter({
+            insert:         'before',
+            caseSensitive : false,
 
             method: function (filter, opts) {
                 filter = opts.caseSensitive ? filter : filter.toLowerCase();
+
                 return function (text) {
-                    var ttc = opts.caseSensitive ? text : text.toLowerCase();
-                    return ttc.substr(0, filter.length) == filter;
+                    return (opts.caseSensitive ? text : text.toLowerCase()).substr(0, filter.length) == filter;
                 }
             },
 
-            showMatches: function (count) {
-                $('#garSelectHits').html(count == 0 ? 'keine Treffer' : count);
-            },
-            cssClass: 'faytFilter2',
-            delay: 1000
+            showMatches: '#customSelectMatchCount',
+            cssClass:    'faytFilter2',
+            delay:       1000
         });
 
+        // the filter also works with lists (UL, OL) and LIs ...
         $('#fooul').faytFilter({
             insert: 'before',
-
-            method: function (filter, opts) {
-                filter = opts.caseSensitive ? filter : filter.toLowerCase();
-                return function (text) {
-                    var ttc = opts.caseSensitive ? text : text.toLowerCase();
-                    return ttc.substr(0, filter.length) == filter;
-                }
-            },
-
-            delay: 1000
+            method: 'wildcard',
+            delay:  1000
         });
+
+        // ... or a DIV as container and SPANs as elements
+        $('#bardiv').faytFilter();
 
     });
 </script>
@@ -102,22 +129,29 @@ DIV {
 <body>
 <h1>jQuery.faytFilter</h1>
 
-<h2>plain, case insensitive</h2>
+<h2>Plain, case insensitive</h2>
+<p>Shows the number of matches in the element "#fooSelectHits". The delay is half a second.</p>
 <div><select id="fooselect" size="3"></select><span id="fooSelectHits"></span></div>
 
-<h2>strict wildcard, case sensitive</h2>
-<div><select id="barselect"></select><span id="barSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
+<h2>Wildcard, case insensitive</h2>
+<div><select id="wcSelect"></select><span id="wcSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
 
-<h2>regexp, case insensitive</h2>
-<div id="gooSelector">FAYT: </div>
-<div><select id="gooselect"></select><span id="gooSelectHits">none yet</span>
+<h2>Strict wildcard, case sensitive</h2>
+<div><select id="strictwildcardSelect"></select><span id="strictwildcardSelectMatchCount" style="border: 1px solid black; padding: 4px;"></span></div>
 
-<h2>custom function</h2>
-<div><select id="garselect"></select><span id="garSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
+<h2>Regexp, case insensitive</h2>
+<div id="regexpSelectFaytContainer">FAYT: </div>
+<div><select id="regexpSelect"></select><span id="regexpSelectMatchCount">none yet</span>
 
-<h2>Non select</h2>
+<h2>Custom function</h2>
+<div><select id="customSelect"></select><span id="customSelectMatchCount" style="border: 1px solid black; padding: 4px;"></span></div>
+
+<h2>Fayt with a List</h2>
 <ul id="fooul">
 </ul>
+
+<h2>Fayt with a DIV</h2>
+<div id="bardiv"></div>
 
 </body>
 </html>
