@@ -73,6 +73,6 @@ The delay in milliseconds between the faytFilter.keyUp event and the filtering a
 
 ## Source, demo and licence
 
-* The source is located here: http://github.com/schnalle/jQuery.fn.faytFilter
-* The demo is located here: http://faytfilter.tapirpirates.net/
-* Licence: Creative Commons 3.0: http://creativecommons.org/licenses/by/3.0/
+* The source can be [found here](http://github.com/schnalle/jQuery.fn.faytFilter)
+* The demo can be [found here](http://faytfilter.tapirpirates.net/)
+* Licence: [Creative Commons 3.0](http://creativecommons.org/licenses/by/3.0/)
