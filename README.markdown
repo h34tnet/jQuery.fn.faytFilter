@@ -1,6 +1,6 @@
-# jQuery.faytFilter
+# jQuery.faytFilter Plugin
 
-Adds a find-as-you-type filter to elements. It works for all elements like SELECT, OLs/ULs, DIVs and many more.
+Adds a find-as-you-type filter to elements. It works for elements like SELECT, OLs/ULs, DIVs and many more.
 
 ## Usage
 
@@ -48,9 +48,9 @@ The inner function should return true if it matches or false otherwise.
     });
 
 ### option.showMatches
-Where the number of matches are displayed. Possible values are either a jQuery element ($('#foo')), a jQuery selector string ('#foo') or a custom function.
+Where the number of matches are displayed. Possible values are either false (don't show), a jQuery element ($('#foo')), a jQuery selector string ('#foo') or a custom function.
 
-Example for a custom function. 
+Example for a custom function:
 
     $('#myselect').faytFilter({
         showMatches: function (count) {

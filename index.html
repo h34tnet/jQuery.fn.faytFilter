@@ -32,8 +32,8 @@
 
         // shows the number of matches in the element "#fooSelectHits"
         // the delay is half a second
-        $('#fooselect').faytFilter({
-            showMatches: '#fooSelectHits',
+        $('#plainSelect').faytFilter({
+            showMatches: '#plainSelectMatchCount',
             delay:       500
 
         });
@@ -43,8 +43,7 @@
         $('#wcSelect').faytFilter({
             insert:        'before',
             method:        'wildcard',
-            caseSensitive: true,
-            showMatches:   $('#wcSelect')
+            showMatches:   $('#wcSelectMatchCount')
         });
 
         // inserts the fayt text field before the element. also, it does 
@@ -133,10 +132,10 @@ DIV {
 
 <h2>Plain, case insensitive</h2>
 <p>Shows the number of matches in the element "#fooSelectHits". The delay is half a second.</p>
-<div><select id="fooselect" size="3"></select><span id="fooSelectHits"></span></div>
+<div><select id="plainSelect" size="3"></select><span id="plainSelectMatchCount"></span></div>
 
 <h2>Wildcard, case insensitive</h2>
-<div><select id="wcSelect"></select><span id="wcSelectHits" style="border: 1px solid black; padding: 4px;"></span></div>
+<div><select id="wcSelect"></select><span id="wcSelectMatchCount" style="border: 1px solid black; padding: 4px;"></span></div>
 
 <h2>Strict wildcard, case sensitive</h2>
 <div><select id="strictwildcardSelect"></select><span id="strictwildcardSelectMatchCount" style="border: 1px solid black; padding: 4px;"></span></div>
